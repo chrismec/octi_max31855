@@ -1,0 +1,72 @@
+esphome:
+  name: "garage-freezers"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: VERY_VERBOSE
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: [redacted]
+    password: [redacted]
+
+captive_portal:
+
+spi:
+  miso_pin: GPIO12
+  clk_pin: GPIO14
+  
+external_components:
+  - source:
+      # You can also use a remote repository as a source
+      type: local
+      path: /config/esphome/my_components
+    components: [octo_max31855]
+
+  
+octo_max31855:
+  - id: octo_max31855_1
+    T0: GPIO21
+    T1: GPIO3
+    T2: GPIO1
+    mux_delay: 125
+
+sensor:
+  - platform: octo_max31855
+    name: sensor1_temp
+    cs_pin: GPIO16
+    channel: 0
+    update_interval: 5s
+  - platform: octo_max31855
+    name: sensor2_temp
+    cs_pin: GPIO16
+    channel: 1
+    update_interval: 5s
+  #- platform: octo_max31855
+  #  name: sensor_temp
+  #  cs_pin: GPIO16
+  #  channel: 0
+  #  reference_temperature:
+  #    id: sensor_temp_internal
+  #  update_interval: 5s
+  # Convert MAX31855 temperature to Celcius
+  # - id: sensor_temp_C
+  #   platform: template
+  #   lambda: |-
+  #     return (id(sensor1_temp).state - 32) * 5.0/9.0;
+  #   update_interval: 5s
