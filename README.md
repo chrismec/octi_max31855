@@ -1,6 +1,7 @@
 <img align="left" src=https://raw.githubusercontent.com/chrismec/octo_max31855/master/octo_max31855_board.jpg alt="MAX31855 Breakout Board">
 
-# Octo MAX31855 Breakout Board -=[ESP HOME]=-
+# Octo MAX31855 Breakout Board
+## -=[ESP HOME]=-
 
 
 Board appears to be made by Whizoo.com and sold by Neem-Tech.
